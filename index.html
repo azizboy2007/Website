@@ -1,693 +1,1149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+>
+
+<meta name="theme-color" content="#020503">
 
 <title>E-Portfolio</title>
 
+
+<!-- =========================================================
+FONTS
+========================================================= -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+
+<!-- =========================================================
+MAIN STYLE
+========================================================= -->
 
 <style>
 
 :root{
-    --background:#030504;
-    --background-soft:#070b08;
-    --card:#090d0a;
-    --card-light:#0c120e;
 
-    --green:#39ff14;
-    --green-dark:#19c900;
+    --black:#020503;
 
-    --white:#f5f7f5;
-    --gray:#929892;
-    --gray-dark:#5f665f;
+    --black-2:#050906;
 
-    --border:rgba(57,255,20,.14);
+    --black-3:#080e0a;
+
+    --panel:#09100b;
+
+    --panel-2:#0c140e;
+
+    --green:#49ff26;
+
+    --green-soft:#24d90c;
+
+    --green-dark:#0c7d00;
+
+    --white:#f7faf7;
+
+    --gray:#9ba39c;
+
+    --gray-dark:#5f6861;
+
+    --border:rgba(73,255,38,.15);
+
 }
 
-/* =========================
+
+/* =========================================================
 RESET
-========================= */
+========================================================= */
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
 }
+
 
 html{
+
     scroll-behavior:smooth;
+
+    background:var(--black);
+
 }
+
+
+/* =========================================================
+HIDE SCROLLBAR
+========================================================= */
+
+html,
+body{
+
+    scrollbar-width:none;
+
+    -ms-overflow-style:none;
+
+}
+
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar{
+
+    width:0px;
+
+    height:0px;
+
+    display:none;
+
+}
+
 
 body{
+
+    width:100%;
+
     min-height:100vh;
+
     overflow-x:hidden;
 
-    background:var(--background);
+    background:var(--black);
+
     color:var(--white);
 
-    font-family:"Inter",sans-serif;
+    font-family:"Inter",Arial,sans-serif;
+
+    position:relative;
+
 }
 
-/* =========================
-BACKGROUND GRID
-========================= */
 
-body::before{
-    content:"";
+/* =========================================================
+FIXED MODERN BACKGROUND
+========================================================= */
+
+.background-system{
 
     position:fixed;
+
     inset:0;
 
-    z-index:-5;
+    width:100%;
 
-    pointer-events:none;
+    height:100%;
+
+    overflow:hidden;
+
+    z-index:-10;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 10%,
+        rgba(45,255,20,.11),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 90% 30%,
+        rgba(0,160,45,.10),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 50% 100%,
+        rgba(42,255,18,.07),
+        transparent 35%
+    ),
+
+    linear-gradient(
+        180deg,
+        #020503 0%,
+        #020704 45%,
+        #010302 100%
+    );
+
+}
+
+
+/* =========================================================
+PARTICLE HOLDER
+========================================================= */
+
+#particles-js{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    opacity:.45;
+
+}
+
+
+/* =========================================================
+MODERN GRID
+========================================================= */
+
+.grid-overlay{
+
+    position:absolute;
+
+    inset:0;
 
     background-image:
+
     linear-gradient(
-        rgba(57,255,20,.035) 1px,
+        rgba(73,255,38,.035) 1px,
         transparent 1px
     ),
+
     linear-gradient(
         90deg,
-        rgba(57,255,20,.035) 1px,
+        rgba(73,255,38,.035) 1px,
         transparent 1px
     );
 
     background-size:72px 72px;
+
+    opacity:.7;
+
+    -webkit-mask-image:
+    linear-gradient(
+        to bottom,
+        rgba(0,0,0,.9),
+        transparent 90%
+    );
+
 }
 
-/* =========================
-BACKGROUND GLOW
-========================= */
 
-body::after{
-    content:"";
+/* =========================================================
+AURORA ORBS
+========================================================= */
 
-    position:fixed;
+.aurora{
 
-    width:650px;
-    height:650px;
-
-    top:-320px;
-    right:-300px;
+    position:absolute;
 
     border-radius:50%;
 
-    background:rgba(57,255,20,.10);
+    filter:blur(90px);
 
-    filter:blur(140px);
+    opacity:.4;
+
+    will-change:transform;
+
+}
+
+
+.aurora-one{
+
+    width:420px;
+
+    height:420px;
+
+    background:rgba(65,255,34,.16);
+
+    top:8%;
+
+    left:-180px;
+
+    animation:auroraOne 12s ease-in-out infinite alternate;
+
+}
+
+
+.aurora-two{
+
+    width:500px;
+
+    height:500px;
+
+    background:rgba(0,190,42,.12);
+
+    top:42%;
+
+    right:-230px;
+
+    animation:auroraTwo 15s ease-in-out infinite alternate;
+
+}
+
+
+.aurora-three{
+
+    width:400px;
+
+    height:400px;
+
+    background:rgba(67,255,31,.09);
+
+    bottom:-180px;
+
+    left:35%;
+
+    animation:auroraThree 14s ease-in-out infinite alternate;
+
+}
+
+
+@keyframes auroraOne{
+
+    from{
+
+        transform:translate3d(0,0,0) scale(1);
+
+    }
+
+    to{
+
+        transform:translate3d(120px,120px,0) scale(1.2);
+
+    }
+
+}
+
+
+@keyframes auroraTwo{
+
+    from{
+
+        transform:translate3d(0,0,0) scale(1);
+
+    }
+
+    to{
+
+        transform:translate3d(-130px,80px,0) scale(1.15);
+
+    }
+
+}
+
+
+@keyframes auroraThree{
+
+    from{
+
+        transform:translate3d(0,0,0);
+
+    }
+
+    to{
+
+        transform:translate3d(-90px,-120px,0);
+
+    }
+
+}
+
+
+/* =========================================================
+TOP GRAIN / TEXTURE
+========================================================= */
+
+.noise{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.07;
 
     pointer-events:none;
 
-    z-index:-4;
+    background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+
 }
 
-/* =========================
+
+/* =========================================================
 NAVBAR
-========================= */
+========================================================= */
 
 .navbar{
+
     width:100%;
 
-    height:78px;
+    min-height:78px;
 
-    padding:0 7%;
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    z-index:1000;
 
     display:flex;
 
     align-items:center;
+
     justify-content:space-between;
 
-    position:sticky;
+    padding:0 7%;
 
-    top:0;
+    background:rgba(2,5,3,.88);
 
-    z-index:100;
+    border-bottom:1px solid rgba(255,255,255,.06);
 
-    background:rgba(3,5,4,.82);
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.25);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-
-    border-bottom:1px solid rgba(255,255,255,.07);
 }
 
+
+/* enhanced modern browser only */
+
+@supports ((backdrop-filter:blur(10px)) or
+          (-webkit-backdrop-filter:blur(10px))){
+
+    .navbar{
+
+        background:rgba(2,5,3,.70);
+
+        backdrop-filter:blur(18px);
+
+        -webkit-backdrop-filter:blur(18px);
+
+    }
+
+}
+
+
 .brand{
+
+    display:flex;
+
+    align-items:center;
+
     font-size:18px;
 
     font-weight:900;
 
-    letter-spacing:1.5px;
+    letter-spacing:1.4px;
+
 }
 
-.brand span{
+
+.brand-white{
+
+    color:white;
+
+}
+
+
+.brand-green{
+
     color:var(--green);
+
+    text-shadow:
+    0 0 18px rgba(73,255,38,.25);
+
 }
 
-.status{
+
+.nav-status{
+
     display:flex;
 
     align-items:center;
 
     gap:10px;
 
-    color:var(--gray);
+    color:#8d968e;
 
-    font-size:12px;
+    font-size:11px;
 
-    font-weight:700;
+    font-weight:800;
 
     letter-spacing:2px;
+
 }
 
-.status-dot{
+
+.nav-dot{
+
     width:10px;
 
     height:10px;
 
-    border-radius:50%;
-
     background:var(--green);
 
-    box-shadow:
-    0 0 10px var(--green),
-    0 0 25px rgba(57,255,20,.6);
+    border-radius:50%;
 
-    animation:pulse 2s ease-in-out infinite;
+    box-shadow:
+
+    0 0 8px var(--green),
+
+    0 0 25px rgba(73,255,38,.65);
+
+    animation:navPulse 1.8s ease-in-out infinite;
+
 }
 
-@keyframes pulse{
 
-    0%,100%{
+@keyframes navPulse{
+
+    0%,
+    100%{
+
         opacity:1;
+
         transform:scale(1);
+
     }
 
     50%{
-        opacity:.5;
+
+        opacity:.45;
+
         transform:scale(.75);
+
     }
 
 }
 
-/* =========================
-MAIN CONTAINER
-========================= */
 
-.container{
-    width:min(1400px,100%);
+/* =========================================================
+MAIN
+========================================================= */
 
-    margin:auto;
+main{
 
-    padding-left:7%;
-    padding-right:7%;
+    position:relative;
+
+    z-index:2;
+
 }
 
-/* =========================
+
+.wrapper{
+
+    width:86%;
+
+    max-width:1400px;
+
+    margin:0 auto;
+
+}
+
+
+/* =========================================================
 INTRODUCTION
-========================= */
+========================================================= */
 
 .introduction{
-    min-height:calc(100vh - 78px);
+
+    padding-top:170px;
+
+    padding-bottom:130px;
+
+    min-height:100vh;
 
     display:grid;
 
-    grid-template-columns:1.05fr .95fr;
+    grid-template-columns:1fr 480px;
+
+    gap:90px;
 
     align-items:center;
 
-    gap:80px;
-
-    padding-top:80px;
-    padding-bottom:100px;
 }
 
-/* INTRO TEXT */
 
-.eyebrow{
+/* =========================================================
+SECTION MINI LABEL
+========================================================= */
+
+.label{
+
     display:flex;
 
     align-items:center;
 
-    gap:15px;
+    gap:13px;
+
+    margin-bottom:26px;
 
     color:var(--green);
 
-    font-size:13px;
-
     font-weight:900;
+
+    font-size:12px;
 
     letter-spacing:5px;
 
-    margin-bottom:26px;
 }
 
-.eyebrow::before{
-    content:"";
 
-    width:30px;
+.label-line{
+
+    width:35px;
 
     height:2px;
 
     background:var(--green);
 
-    box-shadow:0 0 10px rgba(57,255,20,.5);
+    box-shadow:
+
+    0 0 10px rgba(73,255,38,.4);
+
 }
 
+
+/* =========================================================
+INTRO TITLE
+========================================================= */
+
 .intro-title{
-    font-family:"Anton",sans-serif;
 
-    font-size:clamp(70px,9vw,145px);
+    max-width:800px;
 
-    line-height:.88;
+    font-family:"Archivo Black",Arial Black,sans-serif;
 
-    letter-spacing:-2px;
+    font-size:100px;
+
+    line-height:.87;
+
+    letter-spacing:-5px;
 
     text-transform:uppercase;
 
-    max-width:850px;
 }
 
-.intro-title span{
+
+.green-text{
+
     color:var(--green);
+
+    text-shadow:
+
+    0 0 35px rgba(73,255,38,.08);
+
 }
+
 
 .intro-description{
+
     max-width:650px;
 
     margin-top:32px;
 
     color:var(--gray);
 
-    font-size:18px;
+    font-size:17px;
 
-    line-height:1.85;
+    line-height:1.9;
+
 }
 
-/* =========================
-INTRO IMAGE AREA
-========================= */
 
-.intro-image-area{
+/* =========================================================
+INTRO VISUAL
+========================================================= */
+
+.intro-visual{
+
     min-height:570px;
 
     position:relative;
 
     display:flex;
 
+    align-items:center;
+
     justify-content:center;
 
-    align-items:center;
 }
 
-/* GREEN GLOW */
 
-.intro-glow{
+/* =========================================================
+RINGS
+========================================================= */
+
+.visual-ring{
+
     position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(73,255,38,.18);
+
+    animation:ringRotate 18s linear infinite;
+
+}
+
+
+.visual-ring.second{
 
     width:370px;
 
     height:370px;
 
-    border-radius:50%;
+    border-color:rgba(73,255,38,.08);
 
-    background:rgba(57,255,20,.17);
+    animation-duration:24s;
 
-    filter:blur(85px);
+    animation-direction:reverse;
+
 }
 
-/* ROTATING CIRCLE */
 
-.intro-ring{
-    position:absolute;
-
-    width:470px;
-
-    height:470px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(57,255,20,.18);
-
-    animation:rotate 22s linear infinite;
-}
-
-.intro-ring::before{
-    content:"";
+.ring-point{
 
     position:absolute;
 
-    width:12px;
+    width:10px;
 
-    height:12px;
+    height:10px;
 
-    top:-6px;
+    top:-5px;
 
     left:50%;
+
+    margin-left:-5px;
 
     border-radius:50%;
 
     background:var(--green);
 
     box-shadow:
-    0 0 15px var(--green),
-    0 0 30px rgba(57,255,20,.6);
+
+    0 0 12px var(--green),
+
+    0 0 30px rgba(73,255,38,.8);
+
 }
 
-.intro-ring::after{
-    content:"";
 
-    position:absolute;
+@keyframes ringRotate{
 
-    width:7px;
+    from{
 
-    height:7px;
+        transform:rotate(0deg);
 
-    right:0;
-
-    top:50%;
-
-    border-radius:50%;
-
-    background:rgba(57,255,20,.45);
-}
-
-@keyframes rotate{
+    }
 
     to{
+
         transform:rotate(360deg);
+
     }
 
 }
 
-/* =========================
-FLOATING IMAGE
-========================= */
 
-.floating-image{
+/* =========================================================
+IMAGE FLOATING FRAME
+========================================================= */
+
+.intro-image{
+
     position:relative;
 
-    z-index:5;
+    z-index:10;
 
-    width:min(390px,80vw);
+    width:350px;
 
-    height:490px;
+    height:455px;
+
+    border-radius:36px;
 
     overflow:hidden;
 
-    border-radius:40px;
-
     display:flex;
-
-    justify-content:center;
 
     align-items:center;
 
+    justify-content:center;
+
+    border:1px solid rgba(73,255,38,.27);
+
     background:
+
     radial-gradient(
-        circle at top right,
-        rgba(57,255,20,.18),
+        circle at 80% 10%,
+        rgba(73,255,38,.18),
         transparent 40%
     ),
+
     linear-gradient(
         145deg,
-        #0d140f,
-        #050806
+        rgba(18,35,22,.96),
+        rgba(4,9,6,.98)
     );
 
-    border:1px solid rgba(57,255,20,.28);
-
     box-shadow:
-    0 45px 100px rgba(0,0,0,.75),
-    0 0 70px rgba(57,255,20,.07);
 
-    animation:floatImage 4s ease-in-out infinite;
+    0 35px 100px rgba(0,0,0,.7),
+
+    0 0 80px rgba(73,255,38,.06),
+
+    inset 0 0 0 1px rgba(255,255,255,.025);
+
+    animation:floatMain 4s ease-in-out infinite;
+
 }
 
-/*
-==================================================
-WHEN YOU HAVE YOUR IMAGE:
 
-DELETE:
-<div class="image-placeholder">IMAGE</div>
+.intro-image img{
 
-REPLACE WITH:
-<img src="your-image.png" alt="Introduction Image">
-
-==================================================
-*/
-
-.floating-image img{
     width:100%;
 
     height:100%;
 
     object-fit:cover;
+
 }
 
-.image-placeholder{
-    font-family:"Anton",sans-serif;
+
+.intro-image-placeholder{
+
+    font-family:"Archivo Black",sans-serif;
+
+    font-size:55px;
 
     color:var(--green);
 
-    font-size:65px;
+    letter-spacing:-2px;
 
-    letter-spacing:2px;
 }
 
-.floating-image::before{
+
+@keyframes floatMain{
+
+    0%,
+    100%{
+
+        transform:translateY(0px) rotate(-1deg);
+
+    }
+
+    50%{
+
+        transform:translateY(-18px) rotate(1deg);
+
+    }
+
+}
+
+
+/* =========================================================
+IMAGE LIGHT
+========================================================= */
+
+.visual-glow{
+
+    width:300px;
+
+    height:300px;
+
+    position:absolute;
+
+    background:rgba(73,255,38,.15);
+
+    border-radius:50%;
+
+    filter:blur(75px);
+
+}
+
+
+/* =========================================================
+ACTIVITIES SECTION
+========================================================= */
+
+.activities{
+
+    padding-top:100px;
+
+    padding-bottom:140px;
+
+}
+
+
+/* =========================================================
+ACTIVITY HEADER
+========================================================= */
+
+.activities-header{
+
+    margin-bottom:75px;
+
+}
+
+
+.activities-title{
+
+    font-family:"Archivo Black",Arial Black,sans-serif;
+
+    font-size:100px;
+
+    line-height:.9;
+
+    letter-spacing:-5px;
+
+    text-transform:uppercase;
+
+}
+
+
+.activities-subtitle{
+
+    max-width:620px;
+
+    margin-top:24px;
+
+    color:var(--gray);
+
+    font-size:16px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+ACTIVITY CARD
+========================================================= */
+
+.activity-card{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:540px;
+
+    margin-bottom:42px;
+
+    padding:54px;
+
+    display:grid;
+
+    grid-template-columns:1fr 410px;
+
+    gap:65px;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    border-radius:34px;
+
+    background:
+
+    radial-gradient(
+        circle at 92% 12%,
+        rgba(73,255,38,.075),
+        transparent 34%
+    ),
+
+    linear-gradient(
+        135deg,
+        rgba(12,21,14,.98),
+        rgba(5,10,7,.98)
+    );
+
+    border:1px solid rgba(73,255,38,.14);
+
+    box-shadow:
+
+    0 20px 70px rgba(0,0,0,.22),
+
+    inset 0 1px 0 rgba(255,255,255,.025);
+
+    transition:
+
+    border-color .35s ease,
+
+    box-shadow .35s ease,
+
+    transform .35s ease;
+
+}
+
+
+.activity-card::after{
+
     content:"";
 
     position:absolute;
 
-    inset:12px;
+    width:260px;
 
-    pointer-events:none;
+    height:260px;
 
-    border-radius:30px;
+    right:-100px;
 
-    border:1px solid rgba(255,255,255,.05);
-}
+    top:-130px;
 
-@keyframes floatImage{
+    border-radius:50%;
 
-    0%,100%{
-        transform:
-        translateY(0px)
-        rotate(-1deg);
-    }
-
-    50%{
-        transform:
-        translateY(-20px)
-        rotate(1deg);
-    }
+    border:1px solid rgba(73,255,38,.08);
 
 }
 
-/* =========================
-ACTIVITIES HEADER
-========================= */
-
-.activities-section{
-    padding-top:90px;
-
-    padding-bottom:140px;
-}
-
-.activities-heading{
-    margin-bottom:70px;
-}
-
-.activities-label{
-    color:var(--green);
-
-    font-size:13px;
-
-    font-weight:900;
-
-    letter-spacing:5px;
-
-    margin-bottom:24px;
-}
-
-.activities-title{
-    font-family:"Anton",sans-serif;
-
-    font-size:clamp(65px,9vw,135px);
-
-    line-height:.9;
-
-    letter-spacing:-1px;
-
-    text-transform:uppercase;
-}
-
-.activities-description{
-    max-width:700px;
-
-    margin-top:28px;
-
-    color:var(--gray);
-
-    font-size:17px;
-
-    line-height:1.8;
-}
-
-/* =========================
-ACTIVITY CARD
-========================= */
-
-.activity-card{
-    position:relative;
-
-    min-height:560px;
-
-    display:grid;
-
-    grid-template-columns:1fr 430px;
-
-    gap:70px;
-
-    align-items:center;
-
-    padding:55px;
-
-    margin-bottom:42px;
-
-    overflow:hidden;
-
-    border-radius:36px;
-
-    background:
-    radial-gradient(
-        circle at 90% 15%,
-        rgba(57,255,20,.08),
-        transparent 35%
-    ),
-    linear-gradient(
-        145deg,
-        var(--card-light),
-        var(--card)
-    );
-
-    border:1px solid var(--border);
-
-    transition:
-    transform .4s ease,
-    border-color .4s ease,
-    box-shadow .4s ease;
-}
 
 .activity-card:hover{
-    transform:translateY(-7px);
 
-    border-color:rgba(57,255,20,.35);
+    transform:translateY(-6px);
+
+    border-color:rgba(73,255,38,.32);
 
     box-shadow:
-    0 30px 90px rgba(0,0,0,.5),
-    0 0 60px rgba(57,255,20,.055);
+
+    0 35px 90px rgba(0,0,0,.38),
+
+    0 0 50px rgba(73,255,38,.045);
+
 }
 
-/* CARD BACKGROUND NUMBER */
+
+/* =========================================================
+TOP GREEN BORDER GLOW
+========================================================= */
 
 .activity-card::before{
-    content:attr(data-number);
+
+    content:"";
 
     position:absolute;
 
-    right:20px;
+    top:0;
 
-    bottom:-70px;
+    left:10%;
 
-    font-family:"Anton",sans-serif;
+    width:80%;
 
-    font-size:260px;
+    height:1px;
 
-    line-height:1;
+    background:
 
-    color:rgba(57,255,20,.018);
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(73,255,38,.55),
+        transparent
+    );
 
-    pointer-events:none;
+    opacity:.5;
+
 }
 
-/* =========================
-ACTIVITY CONTENT
-========================= */
 
-.activity-content{
-    position:relative;
-
-    z-index:2;
-}
+/* =========================================================
+ACTIVITY NUMBER
+========================================================= */
 
 .activity-number{
+
     display:flex;
 
     align-items:center;
 
-    gap:14px;
+    gap:15px;
 
-    margin-bottom:55px;
+    margin-bottom:52px;
 
     color:var(--green);
 
-    font-size:18px;
-
     font-weight:900;
+
+    font-size:17px;
+
 }
 
-.activity-number::after{
-    content:"";
 
-    width:70px;
+.activity-number-line{
+
+    width:65px;
 
     height:1px;
 
-    background:rgba(57,255,20,.4);
+    background:rgba(73,255,38,.35);
+
 }
+
+
+/* =========================================================
+ACTIVITY TITLE
+========================================================= */
 
 .activity-title{
-    max-width:720px;
 
-    font-family:"Anton",sans-serif;
+    max-width:690px;
 
-    font-size:clamp(48px,6vw,90px);
+    font-family:"Archivo Black",Arial Black,sans-serif;
 
-    line-height:.95;
+    font-size:68px;
+
+    line-height:.94;
+
+    letter-spacing:-3px;
 
     text-transform:uppercase;
+
 }
 
-.activity-text{
-    max-width:630px;
+
+/* =========================================================
+ACTIVITY TEXT
+========================================================= */
+
+.activity-description{
+
+    max-width:600px;
 
     margin-top:25px;
 
     color:var(--gray);
 
-    font-size:17px;
+    font-size:16px;
 
-    line-height:1.8;
+    line-height:1.85;
+
 }
 
-/* =========================
+
+/* =========================================================
 ACTIVITY IMAGE
-========================= */
+========================================================= */
 
 .activity-image{
+
+    width:100%;
+
+    height:390px;
+
     position:relative;
 
-    height:410px;
-
-    border-radius:30px;
-
-    overflow:hidden;
+    z-index:5;
 
     display:flex;
 
@@ -695,44 +1151,461 @@ ACTIVITY IMAGE
 
     justify-content:center;
 
+    overflow:hidden;
+
+    border-radius:27px;
+
+    border:1px solid rgba(73,255,38,.18);
+
     background:
+
     radial-gradient(
-        circle at 50% 40%,
-        rgba(57,255,20,.17),
-        transparent 50%
+        circle at 50% 35%,
+        rgba(73,255,38,.14),
+        transparent 48%
     ),
-    #050806;
 
-    border:1px solid rgba(57,255,20,.22);
-
-    animation:smallFloat 4.5s ease-in-out infinite;
+    linear-gradient(
+        145deg,
+        #09100b,
+        #040705
+    );
 
     box-shadow:
-    0 25px 60px rgba(0,0,0,.4);
+
+    0 24px 55px rgba(0,0,0,.35);
+
+    animation:activityFloat 4.5s ease-in-out infinite;
+
 }
 
+
 .activity-image img{
+
     width:100%;
 
     height:100%;
 
     object-fit:cover;
+
 }
 
-.activity-image-placeholder{
+
+.activity-image-text{
+
+    font-family:"Archivo Black",sans-serif;
+
+    font-size:50px;
+
     color:var(--green);
 
-    font-family:"Anton",sans-serif;
-
-    font-size:58px;
-
-    letter-spacing:2px;
 }
 
-@keyframes smallFloat{
 
-    0%,100%{
-        transform:translateY(0);
+@keyframes activityFloat{
+
+    0%,
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+}
+
+
+/* =========================================================
+ALTERNATE CARDS
+========================================================= */
+
+.activity-card.reverse{
+
+    grid-template-columns:410px 1fr;
+
+}
+
+
+.activity-card.reverse .activity-image{
+
+    order:1;
+
+}
+
+
+.activity-card.reverse .activity-content{
+
+    order:2;
+
+}
+
+
+/* =========================================================
+DECORATIVE LARGE NUMBER
+========================================================= */
+
+.big-number{
+
+    position:absolute;
+
+    right:24px;
+
+    bottom:-48px;
+
+    color:rgba(73,255,38,.022);
+
+    font-family:"Archivo Black",sans-serif;
+
+    font-size:210px;
+
+    line-height:1;
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.footer{
+
+    min-height:170px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+    color:#59625b;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+}
+
+
+.footer-green{
+
+    color:var(--green);
+
+}
+
+
+/* =========================================================
+JS ANIMATION INITIAL STATE
+========================================================= */
+
+.animate{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+
+/* =========================================================
+TABLET
+========================================================= */
+
+@media screen and (max-width:1050px){
+
+    .introduction{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+
+    }
+
+
+    .intro-visual{
+
+        min-height:540px;
+
+    }
+
+
+    .activity-card,
+    .activity-card.reverse{
+
+        grid-template-columns:1fr;
+
+        gap:45px;
+
+    }
+
+
+    .activity-card.reverse .activity-image,
+    .activity-card.reverse .activity-content{
+
+        order:initial;
+
+    }
+
+}
+
+
+/* =========================================================
+PHONE
+========================================================= */
+
+@media screen and (max-width:700px){
+
+    .wrapper{
+
+        width:calc(100% - 48px);
+
+    }
+
+
+    .navbar{
+
+        min-height:70px;
+
+        padding-left:24px;
+
+        padding-right:24px;
+
+    }
+
+
+    .brand{
+
+        font-size:15px;
+
+    }
+
+
+    .nav-status{
+
+        font-size:9px;
+
+        letter-spacing:1px;
+
+    }
+
+
+    .introduction{
+
+        min-height:auto;
+
+        padding-top:135px;
+
+        padding-bottom:75px;
+
+    }
+
+
+    .label{
+
+        font-size:10px;
+
+        letter-spacing:4px;
+
+    }
+
+
+    .intro-title{
+
+        font-size:62px;
+
+        letter-spacing:-3px;
+
+    }
+
+
+    .intro-description{
+
+        font-size:15px;
+
+        line-height:1.8;
+
+        margin-top:24px;
+
+    }
+
+
+    .intro-visual{
+
+        min-height:440px;
+
+    }
+
+
+    .visual-ring{
+
+        width:310px;
+
+        height:310px;
+
+    }
+
+
+    .visual-ring.second{
+
+        width:255px;
+
+        height:255px;
+
+    }
+
+
+    .visual-glow{
+
+        width:230px;
+
+        height:230px;
+
+    }
+
+
+    .intro-image{
+
+        width:250px;
+
+        height:335px;
+
+        border-radius:28px;
+
+    }
+
+
+    .intro-image-placeholder{
+
+        font-size:42px;
+
+    }
+
+
+    .activities{
+
+        padding-top:60px;
+
+        padding-bottom:90px;
+
+    }
+
+
+    .activities-header{
+
+        margin-bottom:45px;
+
+    }
+
+
+    .activities-title{
+
+        font-size:60px;
+
+        letter-spacing:-3px;
+
+    }
+
+
+    .activities-subtitle{
+
+        font-size:14px;
+
+    }
+
+
+    .activity-card,
+    .activity-card.reverse{
+
+        min-height:auto;
+
+        padding:29px 24px;
+
+        gap:35px;
+
+        border-radius:27px;
+
+        margin-bottom:28px;
+
+    }
+
+
+    .activity-number{
+
+        margin-bottom:35px;
+
+        font-size:14px;
+
+    }
+
+
+    .activity-number-line{
+
+        width:50px;
+
+    }
+
+
+    .activity-title{
+
+        font-size:44px;
+
+        letter-spacing:-2px;
+
+    }
+
+
+    .activity-description{
+
+        font-size:14px;
+
+        line-height:1.8;
+
+    }
+
+
+    .activity-image{
+
+        height:295px;
+
+        border-radius:22px;
+
+    }
+
+
+    .activity-image-text{
+
+        font-size:38px;
+
+    }
+
+
+    .big-number{
+
+        font-size:130px;
+
+    }
+
+
+    .footer{
+
+        min-height:135px;
+
+    }
+
+}
+
+
+/* =========================================================
+VERY SMALL PHONE
+========================================================= *anslateY(0);
     }
 
     50%{
