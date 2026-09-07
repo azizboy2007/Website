@@ -1,40 +1,1810 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
-<meta name="theme-color" content="#020503">
+<meta
+    name="theme-color"
+    content="#030604"
+>
 
 <title>E-Portfolio</title>
 
 
-<!-- =========================================================
-FONTS
-========================================================= -->
+<!-- OPTIONAL FONT
+     If Google Fonts fails, the website still works normally.
+-->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
 
-
-<!-- =========================================================
-MAIN STYLE
-========================================================= -->
 
 <style>
 
+/* ==========================================================
+ROOT COLORS
+========================================================== */
+
 :root{
+
+    --bg:#030604;
+
+    --bg-2:#061008;
+
+    --panel:rgba(9,18,11,.86);
+
+    --panel-strong:#0b150d;
+
+    --green:#58ff2e;
+
+    --green-2:#1ee900;
+
+    --white:#f5f8f5;
+
+    --muted:#8f9a91;
+
+    --line:rgba(88,255,46,.15);
+
+    --line-soft:rgba(255,255,255,.07);
+
+}
+
+
+/* ==========================================================
+RESET
+========================================================== */
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+
+    -ms-overflow-style:none;
+
+    background:var(--bg);
+
+}
+
+
+/* ==========================================================
+INVISIBLE SCROLLBAR
+Still scrollable.
+========================================================== */
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar{
+
+    display:none;
+
+    width:0;
+
+    height:0;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    background:var(--bg);
+
+    color:var(--white);
+
+    font-family:
+    "Inter",
+    Arial,
+    sans-serif;
+
+    -webkit-font-smoothing:antialiased;
+
+    text-rendering:optimizeLegibility;
+
+}
+
+
+button,
+a{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/* ==========================================================
+MODERN BACKGROUND
+========================================================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-10;
+
+    overflow:hidden;
+
+    background:
+
+    radial-gradient(
+        circle at 15% 8%,
+        rgba(88,255,46,.13),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 88% 30%,
+        rgba(30,233,0,.09),
+        transparent 30%
+    ),
+
+    radial-gradient(
+        circle at 48% 100%,
+        rgba(88,255,46,.07),
+        transparent 36%
+    ),
+
+    linear-gradient(
+        180deg,
+        #020402 0%,
+        #030704 48%,
+        #020402 100%
+    );
+
+}
+
+
+/* GRID */
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+        rgba(88,255,46,.035) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(88,255,46,.035) 1px,
+        transparent 1px
+    );
+
+    background-size:64px 64px;
+
+    -webkit-mask-image:
+
+    linear-gradient(
+        to bottom,
+        #000 0%,
+        rgba(0,0,0,.86) 70%,
+        transparent 100%
+    );
+
+    mask-image:
+
+    linear-gradient(
+        to bottom,
+        #000 0%,
+        rgba(0,0,0,.86) 70%,
+        transparent 100%
+    );
+
+}
+
+
+/* ROTATING AURORA */
+
+.background::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-20%;
+
+    background:
+
+    conic-gradient(
+        from 180deg at 50% 50%,
+        transparent 0deg,
+        rgba(88,255,46,.04) 72deg,
+        transparent 130deg,
+        rgba(88,255,46,.03) 220deg,
+        transparent 300deg
+    );
+
+    filter:blur(40px);
+
+    animation:
+    backgroundSpin
+    28s
+    linear
+    infinite;
+
+}
+
+
+@keyframes backgroundSpin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+PARTICLE CANVAS
+========================================================== */
+
+#particleCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    opacity:.62;
+
+}
+
+
+/* ==========================================================
+FLOATING AURORA LIGHTS
+========================================================== */
+
+.orb{
+
+    position:absolute;
+
+    border-radius:999px;
+
+    filter:blur(95px);
+
+    will-change:transform;
+
+    opacity:.55;
+
+}
+
+
+.orb-one{
+
+    width:360px;
+
+    height:360px;
+
+    background:
+    rgba(88,255,46,.14);
+
+    left:-150px;
+
+    top:18%;
+
+    animation:
+    orbOne
+    13s
+    ease-in-out
+    infinite
+    alternate;
+
+}
+
+
+.orb-two{
+
+    width:460px;
+
+    height:460px;
+
+    background:
+    rgba(12,180,32,.10);
+
+    right:-220px;
+
+    top:52%;
+
+    animation:
+    orbTwo
+    16s
+    ease-in-out
+    infinite
+    alternate;
+
+}
+
+
+@keyframes orbOne{
+
+    to{
+
+        transform:
+        translate3d(
+            130px,
+            90px,
+            0
+        )
+        scale(1.18);
+
+    }
+
+}
+
+
+@keyframes orbTwo{
+
+    to{
+
+        transform:
+        translate3d(
+            -120px,
+            -70px,
+            0
+        )
+        scale(1.14);
+
+    }
+
+}
+
+
+/* ==========================================================
+NAVIGATION
+========================================================== */
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
+    z-index:1000;
+
+    height:76px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+
+    0
+
+    max(
+        24px,
+        7vw
+    );
+
+    background:
+    rgba(3,6,4,.88);
+
+    border-bottom:
+    1px solid
+    var(--line-soft);
+
+    box-shadow:
+
+    0
+    14px
+    45px
+    rgba(0,0,0,.24);
+
+}
+
+
+/* GLASS EFFECT
+Only applied when browser supports it.
+*/
+
+@supports (
+    (backdrop-filter:blur(14px))
+    or
+    (-webkit-backdrop-filter:blur(14px))
+){
+
+    .navbar{
+
+        background:
+        rgba(3,6,4,.66);
+
+        backdrop-filter:
+        blur(18px);
+
+        -webkit-backdrop-filter:
+        blur(18px);
+
+    }
+
+}
+
+
+/* BRAND */
+
+.brand{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+}
+
+
+.brand span{
+
+    color:var(--green);
+
+}
+
+
+/* RIGHT NAV */
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#9aa39c;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+}
+
+
+/* ACTIVE DOT */
+
+.status-dot{
+
+    width:9px;
+
+    height:9px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+
+    0 0 10px
+    var(--green),
+
+    0 0 24px
+    rgba(88,255,46,.6);
+
+    animation:
+    dotPulse
+    1.8s
+    ease-in-out
+    infinite;
+
+}
+
+
+@keyframes dotPulse{
+
+    50%{
+
+        opacity:.45;
+
+        transform:scale(.72);
+
+    }
+
+}
+
+
+/* ==========================================================
+GLOBAL WRAPPER
+========================================================== */
+
+.wrapper{
+
+    width:
+    min(
+        1180px,
+        calc(100% - 48px)
+    );
+
+    margin:0 auto;
+
+}
+
+
+/* ==========================================================
+SMALL SECTION LABEL
+========================================================== */
+
+.section-label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:var(--green);
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+}
+
+
+.section-label::before{
+
+    content:"";
+
+    width:32px;
+
+    height:2px;
+
+    background:var(--green);
+
+    box-shadow:
+
+    0 0 10px
+    rgba(88,255,46,.45);
+
+}
+
+
+/* ==========================================================
+INTRODUCTION
+========================================================== */
+
+.introduction{
+
+    min-height:100svh;
+
+    padding:
+
+    146px
+
+    0
+
+    110px;
+
+    display:grid;
+
+    grid-template-columns:
+
+    minmax(0,1.05fr)
+
+    minmax(360px,.95fr);
+
+    gap:72px;
+
+    align-items:center;
+
+}
+
+
+/* ==========================================================
+INTRO TITLE
+========================================================== */
+
+.intro-title{
+
+    margin-top:25px;
+
+    font-family:
+
+    "Archivo Black",
+    "Arial Black",
+    sans-serif;
+
+    font-size:
+
+    clamp(
+        68px,
+        8.3vw,
+        118px
+    );
+
+    line-height:.88;
+
+    letter-spacing:-.055em;
+
+    text-transform:uppercase;
+
+}
+
+
+.intro-title .green{
+
+    color:var(--green);
+
+    text-shadow:
+
+    0 0 34px
+    rgba(88,255,46,.10);
+
+}
+
+
+/* TEXT 2 */
+
+.intro-text{
+
+    max-width:640px;
+
+    margin-top:28px;
+
+    color:var(--muted);
+
+    font-size:17px;
+
+    line-height:1.85;
+
+}
+
+
+/* ==========================================================
+INTRODUCTION IMAGE AREA
+========================================================== */
+
+.intro-visual{
+
+    min-height:520px;
+
+    position:relative;
+
+    display:grid;
+
+    place-items:center;
+
+    isolation:isolate;
+
+}
+
+
+/* GREEN LIGHT */
+
+.intro-glow{
+
+    position:absolute;
+
+    width:310px;
+
+    height:310px;
+
+    border-radius:50%;
+
+    background:
+    rgba(88,255,46,.14);
+
+    filter:blur(68px);
+
+    z-index:-3;
+
+    animation:
+
+    glowPulse
+
+    4.8s
+
+    ease-in-out
+
+    infinite;
+
+}
+
+
+@keyframes glowPulse{
+
+    50%{
+
+        transform:scale(1.1);
+
+        opacity:.78;
+
+    }
+
+}
+
+
+/* ==========================================================
+INTRODUCTION RINGS
+========================================================== */
+
+.ring{
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    border:
+
+    1px solid
+    rgba(88,255,46,.18);
+
+    z-index:-2;
+
+    animation:
+
+    ringRotate
+
+    22s
+
+    linear
+
+    infinite;
+
+}
+
+
+.ring.small{
+
+    width:340px;
+
+    height:340px;
+
+    border-color:
+    rgba(88,255,46,.09);
+
+    animation-duration:29s;
+
+    animation-direction:reverse;
+
+}
+
+
+.ring::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:10px;
+
+    height:10px;
+
+    left:50%;
+
+    top:-5px;
+
+    transform:
+    translateX(-50%);
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+
+    0 0 14px
+    var(--green),
+
+    0 0 28px
+    rgba(88,255,46,.6);
+
+}
+
+
+@keyframes ringRotate{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+FLOATING INTRODUCTION IMAGE
+========================================================== */
+
+.floating-image{
+
+    position:relative;
+
+    width:
+
+    min(
+        350px,
+        78vw
+    );
+
+    aspect-ratio:.78;
+
+    border-radius:34px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+
+    radial-gradient(
+        circle at 76% 12%,
+        rgba(88,255,46,.18),
+        transparent 34%
+    ),
+
+    linear-gradient(
+        145deg,
+        rgba(15,32,18,.98),
+        rgba(4,9,6,.98)
+    );
+
+    border:
+
+    1px solid
+    rgba(88,255,46,.25);
+
+    box-shadow:
+
+    0 42px 100px
+    rgba(0,0,0,.62),
+
+    0 0 62px
+    rgba(88,255,46,.06),
+
+    inset 0 1px 0
+    rgba(255,255,255,.04);
+
+    animation:
+
+    floatingMain
+
+    4.4s
+
+    ease-in-out
+
+    infinite;
+
+}
+
+
+.floating-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:11px;
+
+    border:
+
+    1px solid
+    rgba(255,255,255,.055);
+
+    border-radius:25px;
+
+    pointer-events:none;
+
+}
+
+
+.floating-image img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+}
+
+
+.image-placeholder{
+
+    font-family:
+
+    "Archivo Black",
+    "Arial Black",
+    sans-serif;
+
+    font-size:
+
+    clamp(
+        44px,
+        7vw,
+        64px
+    );
+
+    color:var(--green);
+
+    letter-spacing:-.04em;
+
+    text-align:center;
+
+}
+
+
+@keyframes floatingMain{
+
+    50%{
+
+        transform:
+
+        translateY(-17px)
+
+        rotate(.8deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+ACTIVITIES
+========================================================== */
+
+.activities{
+
+    padding:
+
+    80px
+
+    0
+
+    120px;
+
+}
+
+
+/* ==========================================================
+ACTIVITIES HEADER
+========================================================== */
+
+.activities-header{
+
+    margin-bottom:52px;
+
+}
+
+
+.activities-title{
+
+    margin-top:20px;
+
+    font-family:
+
+    "Archivo Black",
+    "Arial Black",
+    sans-serif;
+
+    font-size:
+
+    clamp(
+        58px,
+        8vw,
+        104px
+    );
+
+    line-height:.9;
+
+    letter-spacing:-.055em;
+
+    text-transform:uppercase;
+
+}
+
+
+.activities-text{
+
+    max-width:660px;
+
+    margin-top:23px;
+
+    color:var(--muted);
+
+    font-size:16px;
+
+    line-height:1.8;
+
+}
+
+
+/* ==========================================================
+ACTIVITY CARD
+========================================================== */
+
+.activity-card{
+
+    position:relative;
+
+    min-height:500px;
+
+    margin-bottom:30px;
+
+    padding:46px;
+
+    display:grid;
+
+    grid-template-columns:
+
+    minmax(0,1fr)
+
+    390px;
+
+    gap:58px;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    border-radius:32px;
+
+    background:
+
+    radial-gradient(
+        circle at 92% 12%,
+        rgba(88,255,46,.075),
+        transparent 30%
+    ),
+
+    linear-gradient(
+        145deg,
+        rgba(12,24,15,.96),
+        rgba(5,10,7,.96)
+    );
+
+    border:
+
+    1px solid
+    var(--line);
+
+    box-shadow:
+
+    0 24px 76px
+    rgba(0,0,0,.28),
+
+    inset 0 1px 0
+    rgba(255,255,255,.025);
+
+    transform:
+    translateZ(0);
+
+    transition:
+
+    transform .35s ease,
+
+    border-color .35s ease,
+
+    box-shadow .35s ease;
+
+}
+
+
+/* GLOW LINE */
+
+.activity-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:12%;
+
+    right:12%;
+
+    top:0;
+
+    height:1px;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(88,255,46,.55),
+        transparent
+    );
+
+    opacity:.65;
+
+}
+
+
+/* DECORATIVE CIRCLE */
+
+.activity-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    right:-130px;
+
+    top:-140px;
+
+    border-radius:50%;
+
+    border:
+
+    1px solid
+    rgba(88,255,46,.08);
+
+}
+
+
+/* HOVER */
+
+.activity-card:hover{
+
+    transform:
+    translateY(-6px);
+
+    border-color:
+    rgba(88,255,46,.32);
+
+    box-shadow:
+
+    0 35px 96px
+    rgba(0,0,0,.38),
+
+    0 0 50px
+    rgba(88,255,46,.04);
+
+}
+
+
+/* ==========================================================
+ALTERNATING CARD
+========================================================== */
+
+.activity-card.reverse{
+
+    grid-template-columns:
+
+    390px
+
+    minmax(0,1fr);
+
+}
+
+
+.activity-card.reverse
+.activity-image{
+
+    order:1;
+
+}
+
+
+.activity-card.reverse
+.activity-content{
+
+    order:2;
+
+}
+
+
+/* ==========================================================
+ACTIVITY TEXT AREA
+========================================================== */
+
+.activity-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* ACTIVITY NUMBER */
+
+.activity-number{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    color:var(--green);
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:42px;
+
+}
+
+
+.activity-number::after{
+
+    content:"";
+
+    width:58px;
+
+    height:1px;
+
+    background:
+    rgba(88,255,46,.35);
+
+}
+
+
+/* TEXT 1 */
+
+.activity-title{
+
+    font-family:
+
+    "Archivo Black",
+    "Arial Black",
+    sans-serif;
+
+    font-size:
+
+    clamp(
+        44px,
+        5.4vw,
+        72px
+    );
+
+    line-height:.94;
+
+    letter-spacing:-.045em;
+
+    text-transform:uppercase;
+
+}
+
+
+/* TEXT 2 */
+
+.activity-description{
+
+    max-width:600px;
+
+    margin-top:22px;
+
+    color:var(--muted);
+
+    font-size:16px;
+
+    line-height:1.82;
+
+}
+
+
+/* ==========================================================
+ACTIVITY IMAGE
+========================================================== */
+
+.activity-image{
+
+    position:relative;
+
+    z-index:2;
+
+    height:360px;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    display:grid;
+
+    place-items:center;
+
+    background:
+
+    radial-gradient(
+        circle at 50% 34%,
+        rgba(88,255,46,.15),
+        transparent 45%
+    ),
+
+    linear-gradient(
+        145deg,
+        #09120b,
+        #040805
+    );
+
+    border:
+
+    1px solid
+    rgba(88,255,46,.18);
+
+    box-shadow:
+
+    0 24px 58px
+    rgba(0,0,0,.34);
+
+    animation:
+
+    floatingSmall
+
+    4.8s
+
+    ease-in-out
+
+    infinite;
+
+}
+
+
+.activity-image img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+}
+
+
+.activity-image
+.image-placeholder{
+
+    font-size:46px;
+
+}
+
+
+@keyframes floatingSmall{
+
+    50%{
+
+        transform:
+        translateY(-9px);
+
+    }
+
+}
+
+
+/* ==========================================================
+LARGE BACKGROUND NUMBER
+========================================================== */
+
+.big-number{
+
+    position:absolute;
+
+    right:22px;
+
+    bottom:-42px;
+
+    font-family:
+
+    "Archivo Black",
+    "Arial Black",
+    sans-serif;
+
+    font-size:190px;
+
+    line-height:1;
+
+    color:
+    rgba(88,255,46,.022);
+
+    pointer-events:none;
+
+    user-select:none;
+
+}
+
+
+/* ==========================================================
+FOOTER
+========================================================== */
+
+.footer{
+
+    min-height:150px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-top:
+
+    1px solid
+    var(--line-soft);
+
+    color:#606b62;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+}
+
+
+.footer span:last-child{
+
+    color:var(--green);
+
+}
+
+
+/* ==========================================================
+TABLET
+========================================================== */
+
+@media
+(max-width:980px){
+
+    .introduction{
+
+        grid-template-columns:1fr;
+
+        gap:26px;
+
+        padding-top:128px;
+
+    }
+
+
+    .intro-visual{
+
+        min-height:500px;
+
+    }
+
+
+    .activity-card,
+    .activity-card.reverse{
+
+        grid-template-columns:1fr;
+
+        gap:38px;
+
+    }
+
+
+    .activity-card.reverse
+    .activity-image,
+
+    .activity-card.reverse
+    .activity-content{
+
+        order:initial;
+
+    }
+
+}
+
+
+/* ==========================================================
+MOBILE
+========================================================== */
+
+@media
+(max-width:680px){
+
+    .navbar{
+
+        height:70px;
+
+        padding:
+
+        0
+
+        22px;
+
+    }
+
+
+    .brand{
+
+        font-size:15px;
+
+    }
+
+
+    .nav-right{
+
+        font-size:9px;
+
+        letter-spacing:1.3px;
+
+    }
+
+
+    .wrapper{
+
+        width:
+        calc(100% - 40px);
+
+    }
+
+
+    /* INTRODUCTION */
+
+    .introduction{
+
+        min-height:auto;
+
+        padding:
+
+        122px
+
+        0
+
+        72px;
+
+    }
+
+
+    .intro-title{
+
+        font-size:
+
+        clamp(
+            58px,
+            16vw,
+            76px
+        );
+
+    }
+
+
+    .intro-text{
+
+        font-size:15px;
+
+        line-height:1.8;
+
+    }
+
+
+    .intro-visual{
+
+        min-height:430px;
+
+    }
+
+
+    .ring{
+
+        width:300px;
+
+        height:300px;
+
+    }
+
+
+    .ring.small{
+
+        width:244px;
+
+        height:244px;
+
+    }
+
+
+    .intro-glow{
+
+        width:230px;
+
+        height:230px;
+
+    }
+
+
+    .floating-image{
+
+        width:248px;
+
+        border-radius:28px;
+
+    }
+
+
+    .floating-image::after{
+
+        border-radius:20px;
+
+    }
+
+
+    /* ACTIVITIES */
+
+    .activities{
+
+        padding:
+
+        54px
+
+        0
+
+        90px;
+
+    }
+
+
+    .activities-header{
+
+        margin-bottom:38px;
+
+    }
+
+
+    .activities-title{
+
+        font-size:
+
+        clamp(
+            54px,
+            15vw,
+            72px
+        );
+
+    }
+
+
+    .activities-text{
+
+        font-size:14px;
+
+    }
+
+
+    .activity-card,
+    .activity-card.reverse{
+
+        min-height:auto;
+
+        padding:
+
+        26px
+
+        22px;
+
+        gap:32px;
+
+        border-radius:25px;
+
+        margin-bottom:24px;
+
+    }
+
+
+    .activity-number{
+
+        margin-bottom:30px;
+
+        font-size:14px;
+
+    }
+
+
+    .activity-title{
+
+        font-size:
+
+        clamp(
+            39px,
+            12vw,
+            52px
+        );
+
+    }
+
+
+    .activity-description{
+
+        font-size:14px;
+
+        line-height:1.8;
+
+    }
+
+
+    .activity-image{
+
+        height:285px;
+
+        border-radius:20px;
+
+    }
+
+
+    .activity-image
+    .image-placeholder{
+
+        font-size:38px;
+
+    }
+
+
+    .big-number{
+
+        font-size:125px;
+
+    }
+
+
+    .footer{
+
+        min-height:125px;
+
+    :root{
 
     --black:#020503;
 
