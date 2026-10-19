@@ -1,0 +1,204 @@
+(function () {
+    "use strict";
+
+    // All portfolio copy and image URLs live in data.json.
+    var dataURL = new URL("data.json", document.baseURI);
+    var portfolio = document.getElementById("portfolio");
+    var loadState = document.getElementById("load-state");
+    var diagnostics = document.getElementById("load-error");
+    var localFile = document.getElementById("local-data");
+
+    function valueAt(data, path) {
+        return path.split(".").reduce(function (value, key) {
+            return value == null ? undefined : value[key];
+        }, data);
+    }
+
+    function requireText(data, path) {
+        if (typeof valueAt(data, path) !== "string") {
+            throw new TypeError("data.json: " + path + " must be a string.");
+        }
+    }
+
+    function validate(data) {
+        ["site.title", "site.language", "site.description",
+         "header.brand", "header.brandAccent", "header.status",
+         "introduction.label", "introduction.title", "introduction.titleAccent",
+         "introduction.description", "introduction.img", "introduction.imgAlt",
+         "introduction.imgPlaceholder", "activities.label", "activities.title",
+         "activities.description", "footer.text", "footer.highlight"
+        ].forEach(function (path) { requireText(data, path); });
+
+        if (!Array.isArray(data.activities.items)) {
+            throw new TypeError("data.json: activities.items must be an array.");
+        }
+        data.activities.items.forEach(function (item, index) {
+            ["number", "title", "description", "img", "imgAlt", "imgPlaceholder"]
+                .forEach(function (field) {
+                    requireText(data, "activities.items." + index + "." + field);
+                });
+        });
+    }
+
+    function bindText(root, data) {
+        root.querySelectorAll("[data-text]").forEach(function (element) {
+            // Text is inserted safely, never interpreted as HTML.
+            element.textContent = valueAt(data, element.dataset.text);
+        });
+    }
+
+    function setImage(holder, item, eager) {
+        var placeholder = holder.querySelector("[data-placeholder]");
+        placeholder.textContent = item.imgPlaceholder;
+        placeholder.hidden = false;
+        var previous = holder.querySelector("img");
+        if (previous) { previous.remove(); }
+        if (!item.img.trim()) { return; }
+
+        var source;
+        try {
+            source = new URL(item.img.trim(), document.baseURI);
+            if (!["http:", "https:", "file:"].includes(source.protocol)) { return; }
+        } catch (error) { return; }
+
+        var img = document.createElement("img");
+        img.alt = item.imgAlt;
+        img.loading = eager ? "eager" : "lazy";
+        img.decoding = "async";
+        // A lazy image must have a layout box to start loading off-screen.
+        // The placeholder remains underneath until the image loads.
+        img.className = "content-image is-loading";
+        img.addEventListener("load", function () {
+            img.classList.remove("is-loading");
+            placeholder.hidden = true;
+        });
+        img.addEventListener("error", function () {
+            img.remove();
+            placeholder.hidden = false;
+        });
+        holder.appendChild(img);
+        img.src = source.href;
+    }
+
+    function render(data) {
+        validate(data);
+        var fragment = document.createDocumentFragment();
+        var template = document.getElementById("activity-template");
+
+        data.activities.items.forEach(function (item) {
+            var card = template.content.firstElementChild.cloneNode(true);
+            card.dataset.number = item.number;
+            bindText(card, item);
+            setImage(card.querySelector(".activity-image"), item, false);
+            fragment.appendChild(card);
+        });
+
+        bindText(portfolio, data);
+        document.title = data.site.title;
+        document.documentElement.lang = data.site.language;
+        document.querySelector('meta[name="description"]').content = data.site.description;
+        setImage(document.getElementById("introduction-image"), data.introduction, true);
+        var section = document.getElementById("activities-section");
+        section.querySelectorAll(".activity-card").forEach(function (card) { card.remove(); });
+        section.appendChild(fragment);
+        portfolio.hidden = false;
+        loadState.hidden = true;
+        document.body.setAttribute("aria-busy", "false");
+        startMotion();
+    }
+
+    function showError(error) {
+        loadState.classList.add("load-failed");
+        loadState.querySelector("progress").hidden = true;
+        diagnostics.hidden = false;
+        // Bootstrap diagnostics are runtime errors, not portfolio content.
+        // They must remain available even if data.json is missing or invalid.
+        diagnostics.textContent = error.name + ": " + error.message;
+        var link = document.getElementById("data-link");
+        link.href = dataURL.href;
+        link.textContent = dataURL.pathname.split("/").pop();
+        link.hidden = false;
+        if (window.location.protocol === "file:") { localFile.hidden = false; }
+        document.body.setAttribute("aria-busy", "false");
+        console.error(error);
+    }
+
+    // Local double-click previews can select the same data.json manually.
+    // GitHub Pages reads it automatically through fetch below.
+    localFile.addEventListener("change", function () {
+        var file = localFile.files[0];
+        if (!file) { return; }
+        file.text().then(function (text) {
+            render(JSON.parse(text));
+        }).catch(showError);
+    });
+
+    function startMotion() {
+        var motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+        var elements = portfolio.querySelectorAll(".reveal");
+        var cards = portfolio.querySelectorAll(".activity-card");
+        var observer = null;
+
+        function revealAll() {
+            elements.forEach(function (element) { element.classList.remove("is-pending"); });
+            if (observer) { observer.disconnect(); }
+        }
+
+        if (!motion.matches && "IntersectionObserver" in window) {
+            try {
+                observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove("is-pending");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0, rootMargin: "0px 0px 30px 0px" });
+                elements.forEach(function (element) {
+                    if (element.getBoundingClientRect().top > window.innerHeight) {
+                        element.classList.add("is-pending");
+                        observer.observe(element);
+                    }
+                });
+            } catch (error) { revealAll(); }
+        }
+
+        function resetCard(card) {
+            card.style.removeProperty("--tilt-x");
+            card.style.removeProperty("--tilt-y");
+        }
+        cards.forEach(function (card) {
+            card.addEventListener("mousemove", function (event) {
+                if (motion.matches || !finePointer.matches || window.innerWidth <= 1000) {
+                    resetCard(card);
+                    return;
+                }
+                var rect = card.getBoundingClientRect();
+                var x = (event.clientX - rect.left) / rect.width - .5;
+                var y = (event.clientY - rect.top) / rect.height - .5;
+                card.style.setProperty("--tilt-x", (-y * 3).toFixed(2) + "deg");
+                card.style.setProperty("--tilt-y", (x * 3).toFixed(2) + "deg");
+            }, { passive: true });
+            card.addEventListener("mouseleave", function () { resetCard(card); });
+        });
+
+        function updateMotionPreference() {
+            if (motion.matches) { revealAll(); }
+            cards.forEach(resetCard);
+        }
+        if (motion.addEventListener) { motion.addEventListener("change", updateMotionPreference); }
+        else if (motion.addListener) { motion.addListener(updateMotionPreference); }
+    }
+
+    function updateVisibility() {
+        document.documentElement.classList.toggle("page-paused", document.hidden);
+    }
+    document.addEventListener("visibilitychange", updateVisibility);
+    updateVisibility();
+
+    fetch(dataURL.href, { cache: "no-store" }).then(function (response) {
+        if (!response.ok) { throw new Error("data.json: HTTP " + response.status); }
+        return response.json();
+    }).then(render).catch(showError);
+}());

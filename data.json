@@ -1,0 +1,56 @@
+{
+  "site": {
+    "title": "E-Portfolio",
+    "language": "en",
+    "description": "These are the activities included in my e-portfolio."
+  },
+  "header": {
+    "brand": "E-",
+    "brandAccent": "PORTFOLIO",
+    "status": "PORTFOLIO"
+  },
+  "introduction": {
+    "label": "INTRODUCTION",
+    "title": "TEXT",
+    "titleAccent": "1",
+    "description": "TEXT 2 — Put your introduction here. This section can contain a short description about your e-portfolio.",
+    "img": "",
+    "imgAlt": "Introduction Image",
+    "imgPlaceholder": "IMAGE"
+  },
+  "activities": {
+    "label": "E-PORTFOLIO",
+    "title": "ACTIVITIES",
+    "description": "These are the activities included in my e-portfolio.",
+    "items": [
+      {
+        "number": "01",
+        "title": "TEXT 1",
+        "description": "TEXT 2 — Write the description for Activity 01 here.",
+        "img": "",
+        "imgAlt": "Activity 01",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "number": "02",
+        "title": "TEXT 1",
+        "description": "TEXT 2 — Write the description for Activity 02 here.",
+        "img": "",
+        "imgAlt": "Activity 02",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "number": "03",
+        "title": "TEXT 1",
+        "description": "TEXT 2 — Write the description for Activity 03 here.",
+        "img": "",
+        "imgAlt": "Activity 03",
+        "imgPlaceholder": "IMAGE"
+      }
+    ]
+  },
+  "footer": {
+    "text": "E-PORTFOLIO",
+    "highlight": "2026"
+  }
+}
