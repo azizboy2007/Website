@@ -1,27 +1,27 @@
 {
   "site": {
-    "title": "E-Portfolio",
+    "title": "Abdul, Abdul Aziz P.",
     "language": "en",
     "description": "These are the activities included in my e-portfolio."
   },
   "header": {
     "brand": "E-",
-    "brandAccent": "PORTFOLIO",
+    "brandAccent": "ABDUL, ABDUL AZIZ P.",
     "status": "PORTFOLIO"
   },
   "introduction": {
-    "label": "INTRODUCTION",
-    "title": "TEXT",
-    "titleAccent": "1",
-    "description": "TEXT 2 — Put your introduction here. This section can contain a short description about your e-portfolio.",
+    "label": "E- PORTFOLIO WEBSITE",
+    "title": "UT",
+    "titleAccent": "S",
+    "description": "UNDERSTANDING THE SELF",
     "img": "",
     "imgAlt": "Introduction Image",
     "imgPlaceholder": "IMAGE"
   },
   "activities": {
     "label": "E-PORTFOLIO",
-    "title": "ACTIVITIES",
-    "description": "These are the activities included in my e-portfolio.",
+    "title": "PRE-LIM",
+    "description": "These are the activities are prelim.",
     "items": [
       {
         "number": "01",
