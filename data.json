@@ -48,16 +48,22 @@
   },
   "activities": {
     "label": "E-PORTFOLIO",
-    "title": "PRE-LIM",
-    "description": "These are the activities are prelim.",
+    "title": "ALL ACTIVITIES",
+    "description": "Scroll down to see all activities from prelim to final.",
     "items": [
       {
         "number": "01",
-        "title": "TEXT 1",
-        "description": "TEXT 2 — Write the description for Activity 01 here.",
-        "img": "",
-        "imgAlt": "Activity 01",
-        "imgPlaceholder": "IMAGE"
+        "title": "PRELIM EXAM",
+        "description": "Understanding the Self — Preliminary Examination.",
+        "img": "images/prelim-exam-01.jpg",
+        "imgAlt": "Preliminary examination, page 1 of 4",
+        "imgPlaceholder": "EXAM",
+        "images": [
+          "images/prelim-exam-01.jpg",
+          "images/prelim-exam-02.jpg",
+          "images/prelim-exam-03.jpg",
+          "images/prelim-exam-04.jpg"
+        ]
       },
       {
         "number": "02",

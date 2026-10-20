@@ -1,0 +1,75 @@
+/* Scoped styles for activities that have multiple images.
+   Existing portfolio sections and single-image activities remain untouched. */
+.activity-frame.has-gallery {
+  width: 100%;
+  max-width: 420px;
+  justify-self: center;
+}
+.activity-frame.has-gallery .activity-image {
+  height: auto;
+  aspect-ratio: 3 / 4;
+  background: #0d0915;
+}
+.activity-frame.has-gallery .content-image {
+  object-fit: contain;
+}
+.exam-gallery-nav {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.exam-gallery-arrow {
+  appearance: none;
+  pointer-events: auto;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 52px;
+  border: 1px solid rgba(184, 138, 255, .42);
+  border-radius: 13px;
+  color: #f7f4fc;
+  background: rgba(9, 6, 15, .78);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .3);
+  font: 600 34px/1 "Inter", Arial, sans-serif;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.exam-gallery-arrow:hover {
+  border-color: rgba(184, 138, 255, .8);
+  background: rgba(55, 30, 82, .95);
+}
+.exam-gallery-arrow:active { transform: scale(.94); }
+.exam-gallery-arrow:focus-visible { outline: 2px solid #b88aff; outline-offset: 3px; }
+.exam-gallery-counter {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  padding: 7px 13px;
+  border: 1px solid rgba(184, 138, 255, .28);
+  border-radius: 8px;
+  background: rgba(9, 6, 15, .82);
+  color: #f7f4fc;
+  font: 700 12px/1.4 "Inter", Arial, sans-serif;
+  letter-spacing: 1.1px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+@media (max-width: 650px) {
+  .exam-gallery-nav { left: 12px; right: 12px; }
+  .exam-gallery-arrow { width: 35px; height: 44px; border-radius: 10px; font-size: 29px; }
+  .exam-gallery-counter { bottom: 16px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .exam-gallery-arrow { transition: none; }
+}

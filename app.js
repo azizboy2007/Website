@@ -37,6 +37,13 @@
                 .forEach(function (field) {
                     requireText(data, "activities.items." + index + "." + field);
                 });
+            // A gallery is optional, so existing single-image activities stay compatible.
+            if (item.images !== undefined) {
+                if (!Array.isArray(item.images) || item.images.length === 0 ||
+                    !item.images.every(function (path) { return typeof path === "string" && !!path.trim(); })) {
+                    throw new TypeError("data.json: activities.items." + index + ".images must be a nonempty array of image paths.");
+                }
+            }
         });
 
         // Older JSON files can omit these sections without hiding the portfolio.
@@ -99,6 +106,67 @@
         img.src = source.href;
     }
 
+    // Load the isolated carousel styles without changing the existing website CSS.
+    var galleryStyles = document.createElement("link");
+    galleryStyles.rel = "stylesheet";
+    galleryStyles.href = new URL("activity-gallery.css", document.baseURI).href;
+    document.head.appendChild(galleryStyles);
+
+    // Only multi-image activities receive arrows; old cards retain their layout.
+    function setActivityImage(card, item) {
+        var holder = card.querySelector(".activity-image");
+        if (!Array.isArray(item.images) || item.images.length < 2) {
+            setImage(holder, item, false);
+            return;
+        }
+
+        var frame = card.querySelector(".activity-frame");
+        var current = 0;
+        frame.classList.add("has-gallery");
+
+        var nav = document.createElement("div");
+        nav.className = "exam-gallery-nav";
+        var previous = document.createElement("button");
+        previous.type = "button";
+        previous.className = "exam-gallery-arrow";
+        previous.textContent = "\u2039";
+        previous.setAttribute("aria-label", "Previous exam page");
+        var next = document.createElement("button");
+        next.type = "button";
+        next.className = "exam-gallery-arrow";
+        next.textContent = "\u203A";
+        next.setAttribute("aria-label", "Next exam page");
+        nav.appendChild(previous);
+        nav.appendChild(next);
+        frame.appendChild(nav);
+
+        var counter = document.createElement("span");
+        counter.className = "exam-gallery-counter";
+        counter.setAttribute("role", "status");
+        counter.setAttribute("aria-live", "polite");
+        frame.appendChild(counter);
+
+        function showPage() {
+            setImage(holder, {
+                img: item.images[current],
+                imgAlt: item.title + ", page " + (current + 1) + " of " + item.images.length,
+                imgPlaceholder: item.imgPlaceholder
+            }, false);
+            counter.textContent = String(current + 1).padStart(2, "0") + " / " +
+                String(item.images.length).padStart(2, "0");
+        }
+
+        previous.addEventListener("click", function () {
+            current = (current + item.images.length - 1) % item.images.length;
+            showPage();
+        });
+        next.addEventListener("click", function () {
+            current = (current + 1) % item.images.length;
+            showPage();
+        });
+        showPage();
+    }
+
     function renderAcademicContext(data) {
         var profileCard = document.getElementById("profile-card");
         var instructorCard = document.getElementById("instructor-card");
@@ -137,7 +205,7 @@
             var card = template.content.firstElementChild.cloneNode(true);
             card.dataset.number = item.number;
             bindText(card, item);
-            setImage(card.querySelector(".activity-image"), item, false);
+            setActivityImage(card, item);
             fragment.appendChild(card);
         });
 
