@@ -32,6 +32,29 @@
         if (!Array.isArray(data.activities.items)) {
             throw new TypeError("data.json: activities.items must be an array.");
         }
+        // Optional academic-term grouping; legacy JSON without terms still renders.
+        if (data.activities.terms !== undefined) {
+            if (!Array.isArray(data.activities.terms) || data.activities.terms.length === 0) {
+                throw new TypeError("data.json: activities.terms must be a nonempty array.");
+            }
+            var knownTerms = Object.create(null);
+            data.activities.terms.forEach(function (term, index) {
+                ["id", "title", "description"].forEach(function (field) {
+                    if (typeof term[field] !== "string" || !term[field].trim()) {
+                        throw new TypeError("data.json: activities.terms." + index + "." + field + " must be a nonempty string.");
+                    }
+                });
+                if (knownTerms[term.id]) {
+                    throw new TypeError("data.json: duplicate academic term " + term.id);
+                }
+                knownTerms[term.id] = true;
+            });
+            data.activities.items.forEach(function (item, index) {
+                if (!knownTerms[item.term]) {
+                    throw new TypeError("data.json: activities.items." + index + ".term has no matching academic period.");
+                }
+            });
+        }
         data.activities.items.forEach(function (item, index) {
             ["number", "title", "description", "img", "imgAlt", "imgPlaceholder"]
                 .forEach(function (field) {
@@ -201,13 +224,59 @@
         var fragment = document.createDocumentFragment();
         var template = document.getElementById("activity-template");
 
-        data.activities.items.forEach(function (item) {
+        function makeCard(item) {
             var card = template.content.firstElementChild.cloneNode(true);
             card.dataset.number = item.number;
             bindText(card, item);
-            setActivityImage(card, item);
-            fragment.appendChild(card);
-        });
+            if (item.pendingImage === true) {
+                card.classList.add("is-pending-asset");
+            }
+            if (item.textOnly === true) {
+                // Explicit no-photo activities remain compact text-only cards.
+                card.classList.add("is-text-only");
+                card.querySelector(".activity-frame").remove();
+            } else {
+                setActivityImage(card, item);
+            }
+            return card;
+        }
+
+        if (Array.isArray(data.activities.terms) && data.activities.terms.length) {
+            // Keep the original first heading from index.html unchanged.
+            // Add only matching headings and card wrappers for subsequent terms.
+            data.activities.terms.forEach(function (term, index) {
+                if (index > 0) {
+                    var heading = document.createElement("div");
+                    heading.className = "activities-heading term-heading reveal";
+                    var eyebrow = document.createElement("div");
+                    eyebrow.className = "activities-label";
+                    eyebrow.textContent = data.activities.label;
+                    var title = document.createElement("h2");
+                    title.className = "activities-title";
+                    title.textContent = term.title;
+                    var description = document.createElement("p");
+                    description.className = "activities-description";
+                    description.textContent = term.description;
+                    heading.appendChild(eyebrow);
+                    heading.appendChild(title);
+                    heading.appendChild(description);
+                    fragment.appendChild(heading);
+                }
+                var group = document.createElement("div");
+                group.className = "term-cards";
+                data.activities.items.forEach(function (item) {
+                    if (item.term === term.id) {
+                        group.appendChild(makeCard(item));
+                    }
+                });
+                fragment.appendChild(group);
+            });
+        } else {
+            // Backward-compatible flat list for older data.json files.
+            data.activities.items.forEach(function (item) {
+                fragment.appendChild(makeCard(item));
+            });
+        }
 
         bindText(portfolio, data);
         document.title = data.site.title;
@@ -216,7 +285,7 @@
         setImage(document.getElementById("introduction-image"), data.introduction, true);
         renderAcademicContext(data);
         var section = document.getElementById("activities-section");
-        section.querySelectorAll(".activity-card").forEach(function (card) { card.remove(); });
+        section.querySelectorAll(".term-cards, .term-heading, .activity-card").forEach(function (node) { node.remove(); });
         section.appendChild(fragment);
         portfolio.hidden = false;
         loadState.hidden = true;

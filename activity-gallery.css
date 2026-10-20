@@ -101,3 +101,45 @@
   display: grid;
   place-items: center;
 }
+
+/* Academic periods: preserve the existing cards, spacing and violet theme. */
+.activities-section .term-heading {
+  margin-top: 48px;
+  padding-top: 74px;
+  border-top: 1px solid rgba(var(--violet-rgb), .2);
+}
+.activities-section .term-cards {
+  min-width: 0;
+}
+.activity-card.is-pending-asset .activity-image-placeholder {
+  max-width: 100%;
+  padding: 20px;
+  color: var(--violet);
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 800;
+  font-size: clamp(13px, 1.7vw, 17px);
+  line-height: 1.7;
+  letter-spacing: .04em;
+  text-transform: none;
+  text-align: center;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.activity-card.is-text-only,
+.activity-card.is-text-only:nth-child(even) {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 280px;
+}
+.activity-card.is-text-only .activity-content {
+  max-width: 720px;
+}
+@media (max-width:650px) {
+  .activities-section .term-heading {
+    margin-top: 18px;
+    padding-top: 56px;
+  }
+  .activity-card.is-text-only,
+  .activity-card.is-text-only:nth-child(even) {
+    min-height: 240px;
+  }
+}

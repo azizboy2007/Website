@@ -48,15 +48,16 @@
   },
   "activities": {
     "label": "E-PORTFOLIO",
-    "title": "ALL ACTIVITIES",
-    "description": "Scroll down to see all activities from prelim to final.",
+    "title": "PRELIMINARY",
+    "description": "Preliminary examination, group quiz, and roleplay.",
     "items": [
       {
+        "term": "preliminary",
         "number": "01",
-        "title": "PRELIM EXAM",
+        "title": "PRELIMINARY EXAM",
         "description": "Understanding the Self — Preliminary Examination.",
         "img": "images/prelim-exam-01.jpg",
-        "imgAlt": "Prelim Exam",
+        "imgAlt": "Preliminary Exam",
         "imgPlaceholder": "EXAM",
         "images": [
           "images/prelim-exam-01.jpg",
@@ -66,7 +67,26 @@
         ]
       },
       {
+        "term": "preliminary",
         "number": "02",
+        "title": "GROUP QUIZ — GROUP 5",
+        "description": "Preliminary group quiz — Group 5.",
+        "img": "images/group5_groupings.jpg",
+        "imgAlt": "Group Quiz — Group 5",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "term": "preliminary",
+        "number": "03",
+        "title": "ROLEPLAY — GROUP 2",
+        "description": "Preliminary roleplay — Group 2.",
+        "img": "images/group2_groupings.jpg",
+        "imgAlt": "Roleplay — Group 2",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "term": "midterm",
+        "number": "01",
         "title": "MIDTERM EXAM",
         "description": "Understanding the Self — Midterm Examination.",
         "img": "images/midterm_exam_p1.jpg",
@@ -80,7 +100,47 @@
         ]
       },
       {
+        "term": "midterm",
+        "number": "02",
+        "title": "QUIZ 1",
+        "description": "Midterm Quiz 1 — image to be added.",
+        "img": "images/midterm_quiz_1.jpg",
+        "imgAlt": "Quiz 1",
+        "imgPlaceholder": "IMAGE PENDING\nmidterm_quiz_1.jpg",
+        "pendingImage": true
+      },
+      {
+        "term": "midterm",
         "number": "03",
+        "title": "QUIZ 2",
+        "description": "Midterm Quiz 2 — image to be added.",
+        "img": "images/midterm_quiz_2.jpg",
+        "imgAlt": "Quiz 2",
+        "imgPlaceholder": "IMAGE PENDING\nmidterm_quiz_2.jpg",
+        "pendingImage": true
+      },
+      {
+        "term": "midterm",
+        "number": "04",
+        "title": "ESSAY",
+        "description": "Midterm essay — image to be added.",
+        "img": "images/midterm_essay.jpg",
+        "imgAlt": "Essay",
+        "imgPlaceholder": "IMAGE PENDING\nmidterm_essay.jpg",
+        "pendingImage": true
+      },
+      {
+        "term": "midterm",
+        "number": "05",
+        "title": "GROUP QUIZ — GROUP 1",
+        "description": "Midterm group quiz — Group 1.",
+        "img": "images/grouping_quiz.jpg",
+        "imgAlt": "Group Quiz — Group 1",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "term": "prefinal",
+        "number": "01",
         "title": "PRE-FINAL EXAM",
         "description": "Understanding the Self — Pre-Final Examination.",
         "img": "images/prefinal_exam_p1.jpg",
@@ -93,60 +153,102 @@
         ]
       },
       {
-        "number": "04",
-        "title": "ACTIVITY 01 — PAST AND PRESENT",
-        "description": "Understanding the Self activity: Past and Present.",
-        "img": "images/activity_past_and_present.jpg",
-        "imgAlt": "Activity 01 — Past And Present",
-        "imgPlaceholder": "IMAGE"
+        "term": "prefinal",
+        "number": "02",
+        "title": "REPORTING",
+        "description": "Pre-Final reporting — image to be added.",
+        "img": "images/prefinal_reporting.jpg",
+        "imgAlt": "Reporting",
+        "imgPlaceholder": "IMAGE PENDING\nprefinal_reporting.jpg",
+        "pendingImage": true
       },
       {
-        "number": "05",
-        "title": "ACTIVITY 02 — SLOGAN",
-        "description": "Understanding the Self activity: Slogan.",
+        "term": "prefinal",
+        "number": "03",
+        "title": "ACTIVITY 1 — SLOGAN",
+        "description": "Pre-Final Activity 1 — Slogan.",
         "img": "images/activity_slogan.jpg",
-        "imgAlt": "Activity 02 — Slogan",
+        "imgAlt": "Activity 1 — Slogan",
         "imgPlaceholder": "IMAGE"
       },
       {
-        "number": "06",
-        "title": "ACTIVITY 03 — SPIRITUAL SELF",
-        "description": "Understanding the Self activity: Spiritual Self.",
+        "term": "prefinal",
+        "number": "04",
+        "title": "ACTIVITY 2 — MATERIAL THINGS",
+        "description": "Reporter po ako dito.",
+        "img": "",
+        "imgAlt": "Activity 2 — Material Things",
+        "imgPlaceholder": "IMAGE",
+        "textOnly": true
+      },
+      {
+        "term": "prefinal",
+        "number": "05",
+        "title": "ACTIVITY 3 — SPIRITUAL LETTER",
+        "description": "Pre-Final Activity 3 — Spiritual Letter.",
         "img": "images/activity3_spirutualself.jpg",
-        "imgAlt": "Activity 03 — Spiritual Self",
+        "imgAlt": "Activity 3 — Spiritual Letter",
         "imgPlaceholder": "IMAGE"
       },
       {
-        "number": "07",
-        "title": "ACTIVITY 04 — UNKNOWN ACTIVITY",
-        "description": "Uploaded activity with unclear filename category.",
+        "term": "prefinal",
+        "number": "06",
+        "title": "ACTIVITY 4 — POLITICAL LETTER",
+        "description": "Pre-Final Activity 4 — Political Letter; image to be added.",
+        "img": "images/prefinal_activity_4_political_letter.jpg",
+        "imgAlt": "Activity 4 — Political Letter",
+        "imgPlaceholder": "IMAGE PENDING\nprefinal_activity_4_political_letter.jpg",
+        "pendingImage": true
+      },
+      {
+        "term": "final",
+        "number": "01",
+        "title": "FINAL EXAM",
+        "description": "Understanding the Self — Final Examination; image to be added.",
+        "img": "images/final_exam_p1.jpg",
+        "imgAlt": "Final Exam",
+        "imgPlaceholder": "IMAGE PENDING\nfinal_exam_p1.jpg",
+        "pendingImage": true
+      },
+      {
+        "term": "final",
+        "number": "02",
+        "title": "DIGITAL OUTPUT — PAST AND PRESENT",
+        "description": "Final digital output — Past and Present.",
+        "img": "images/activity_past_and_present.jpg",
+        "imgAlt": "Digital Output — Past And Present",
+        "imgPlaceholder": "IMAGE"
+      },
+      {
+        "term": "final",
+        "number": "03",
+        "title": "ACTIVITY 6 — LEARNING STRATEGY",
+        "description": "Final Activity 6 — Learning Strategy.",
         "img": "images/activity_unkown.jpg",
-        "imgAlt": "Activity 04 — Unknown Activity",
+        "imgAlt": "Activity 6 — Learning Strategy",
         "imgPlaceholder": "IMAGE"
+      }
+    ],
+    "terms": [
+      {
+        "id": "preliminary",
+        "title": "PRELIMINARY",
+        "description": "Preliminary examination, group quiz, and roleplay."
       },
       {
-        "number": "08",
-        "title": "GROUPING QUIZ",
-        "description": "Understanding the Self grouping quiz.",
-        "img": "images/grouping_quiz.jpg",
-        "imgAlt": "Grouping Quiz",
-        "imgPlaceholder": "IMAGE"
+        "id": "midterm",
+        "title": "MIDTERM",
+        "description": "Midterm examination, quizzes, essay, and group quiz."
       },
       {
-        "number": "09",
-        "title": "GROUPINGS — GROUP 02",
-        "description": "Understanding the Self groupings output, Group 2.",
-        "img": "images/group2_groupings.jpg",
-        "imgAlt": "Groupings — Group 02",
-        "imgPlaceholder": "IMAGE"
+        "id": "prefinal",
+        "title": "PRE-FINAL",
+        "description": "Pre-final examination, reporting, and activities."
       },
       {
-        "number": "10",
-        "title": "GROUPINGS — GROUP 05",
-        "description": "Understanding the Self groupings output, Group 5.",
-        "img": "images/group5_groupings.jpg",
-        "imgAlt": "Groupings — Group 05",
-        "imgPlaceholder": "IMAGE"
+        "id": "final",
+        "title": "FINAL",
+        "description": "Final examination, digital output, and learning strategy."
       }
     ]
   },
