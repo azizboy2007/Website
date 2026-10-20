@@ -103,31 +103,32 @@
         "term": "midterm",
         "number": "02",
         "title": "QUIZ 1",
-        "description": "Midterm Quiz 1 — image to be added.",
+        "description": "Midterm Quiz 1.",
         "img": "images/midterm_quiz_1.jpg",
         "imgAlt": "Quiz 1",
-        "imgPlaceholder": "IMAGE PENDING\nmidterm_quiz_1.jpg",
-        "pendingImage": true
+        "imgPlaceholder": "IMAGE"
       },
       {
         "term": "midterm",
         "number": "03",
         "title": "QUIZ 2",
-        "description": "Midterm Quiz 2 — image to be added.",
+        "description": "Midterm Quiz 2.",
         "img": "images/midterm_quiz_2.jpg",
         "imgAlt": "Quiz 2",
-        "imgPlaceholder": "IMAGE PENDING\nmidterm_quiz_2.jpg",
-        "pendingImage": true
+        "imgPlaceholder": "IMAGE"
       },
       {
         "term": "midterm",
         "number": "04",
         "title": "ESSAY",
-        "description": "Midterm essay — image to be added.",
-        "img": "images/midterm_essay.jpg",
+        "description": "Midterm Essay — 2 pages. Use the arrows to view both pages.",
+        "img": "images/midterm_essay_part1.jpg",
         "imgAlt": "Essay",
-        "imgPlaceholder": "IMAGE PENDING\nmidterm_essay.jpg",
-        "pendingImage": true
+        "imgPlaceholder": "IMAGE",
+        "images": [
+          "images/midterm_essay_part1.jpg",
+          "images/midterm_essay_part2.jpg"
+        ]
       },
       {
         "term": "midterm",
@@ -156,11 +157,10 @@
         "term": "prefinal",
         "number": "02",
         "title": "REPORTING",
-        "description": "Pre-Final reporting — image to be added.",
+        "description": "Pre-Final Reporting.",
         "img": "images/prefinal_reporting.jpg",
         "imgAlt": "Reporting",
-        "imgPlaceholder": "IMAGE PENDING\nprefinal_reporting.jpg",
-        "pendingImage": true
+        "imgPlaceholder": "IMAGE"
       },
       {
         "term": "prefinal",
@@ -194,20 +194,19 @@
         "term": "prefinal",
         "number": "06",
         "title": "ACTIVITY 4 — POLITICAL LETTER",
-        "description": "Pre-Final Activity 4 — Political Letter; image to be added.",
+        "description": "Pre-Final Activity 4 — Political Letter.",
         "img": "images/prefinal_activity_4_political_letter.jpg",
         "imgAlt": "Activity 4 — Political Letter",
-        "imgPlaceholder": "IMAGE PENDING\nprefinal_activity_4_political_letter.jpg",
-        "pendingImage": true
+        "imgPlaceholder": "IMAGE"
       },
       {
         "term": "final",
         "number": "01",
         "title": "FINAL EXAM",
-        "description": "Understanding the Self — Final Examination; image to be added.",
+        "description": "Final Examination — image missing / not found.",
         "img": "images/final_exam_p1.jpg",
         "imgAlt": "Final Exam",
-        "imgPlaceholder": "IMAGE PENDING\nfinal_exam_p1.jpg",
+        "imgPlaceholder": "MISSING / NOT FOUND",
         "pendingImage": true
       },
       {
