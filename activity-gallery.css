@@ -73,3 +73,31 @@
 @media (prefers-reduced-motion: reduce) {
   .exam-gallery-arrow { transition: none; }
 }
+
+
+/* SINGLE-IMAGE ACTIVITIES: size the border to the actual image ratio.
+   The old global 269px/344px height and object-fit:cover cropped photos.
+   Only cards without a multi-page gallery are affected. */
+.activity-frame:not(.has-gallery) .activity-image {
+  height: auto;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+.activity-frame:not(.has-gallery) .activity-image > .content-image {
+  position: relative;
+  inset: auto;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+/* Keep the fallback behind the photo during loading, and visible on errors. */
+.activity-frame:not(.has-gallery) .activity-image > [data-placeholder] {
+  grid-area: 1 / 1;
+  min-height: 269px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
