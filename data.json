@@ -18,6 +18,34 @@
     "imgAlt": "Introduction Image",
     "imgPlaceholder": "IMAGE"
   },
+  "profile": {
+    "label": "STUDENT DETAILS",
+    "nameLabel": "Name",
+    "name": "Abdul, Abdul Aziz P.",
+    "badge": "BSIT · 1-C",
+    "details": [
+      {
+        "label": "Course",
+        "value": "Bachelor of Science in Information Technology (BSIT)"
+      },
+      {
+        "label": "Year & Section",
+        "value": "1 C"
+      },
+      {
+        "label": "School",
+        "value": "Northeastern College"
+      }
+    ]
+  },
+  "instructor": {
+    "label": "COURSE INSTRUCTOR",
+    "name": "Yvone Putang",
+    "course": "Understanding the Self",
+    "img": "images/instructor-yvone-putang.jpg",
+    "imgAlt": "Yvone Putang, course instructor",
+    "imgPlaceholder": "YP"
+  },
   "activities": {
     "label": "E-PORTFOLIO",
     "title": "PRE-LIM",

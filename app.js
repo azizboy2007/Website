@@ -38,12 +38,31 @@
                     requireText(data, "activities.items." + index + "." + field);
                 });
         });
+
+        // Older JSON files can omit these sections without hiding the portfolio.
+        if (data.profile != null) {
+            ["label", "nameLabel", "name", "badge"].forEach(function (field) {
+                requireText(data, "profile." + field);
+            });
+            if (!Array.isArray(data.profile.details)) {
+                throw new TypeError("data.json: profile.details must be an array.");
+            }
+            data.profile.details.forEach(function (detail, index) {
+                requireText(data, "profile.details." + index + ".label");
+                requireText(data, "profile.details." + index + ".value");
+            });
+        }
+        if (data.instructor != null) {
+            ["label", "name", "course", "img", "imgAlt", "imgPlaceholder"]
+                .forEach(function (field) { requireText(data, "instructor." + field); });
+        }
     }
 
     function bindText(root, data) {
         root.querySelectorAll("[data-text]").forEach(function (element) {
             // Text is inserted safely, never interpreted as HTML.
-            element.textContent = valueAt(data, element.dataset.text);
+            var value = valueAt(data, element.dataset.text);
+            element.textContent = value == null ? "" : value;
         });
     }
 
@@ -80,6 +99,35 @@
         img.src = source.href;
     }
 
+    function renderAcademicContext(data) {
+        var profileCard = document.getElementById("profile-card");
+        var instructorCard = document.getElementById("instructor-card");
+        var context = document.getElementById("academic-context");
+        var details = document.getElementById("profile-details");
+        profileCard.hidden = data.profile == null;
+        instructorCard.hidden = data.instructor == null;
+        context.hidden = profileCard.hidden && instructorCard.hidden;
+        context.classList.toggle("has-one-card", profileCard.hidden !== instructorCard.hidden);
+        details.textContent = "";
+
+        if (data.profile != null) {
+            data.profile.details.forEach(function (detail) {
+                var row = document.createElement("div");
+                row.className = "detail-row";
+                var label = document.createElement("dt");
+                var value = document.createElement("dd");
+                label.textContent = detail.label;
+                value.textContent = detail.value;
+                row.appendChild(label);
+                row.appendChild(value);
+                details.appendChild(row);
+            });
+        }
+        if (data.instructor != null) {
+            setImage(document.getElementById("instructor-image"), data.instructor, false);
+        }
+    }
+
     function render(data) {
         validate(data);
         var fragment = document.createDocumentFragment();
@@ -98,6 +146,7 @@
         document.documentElement.lang = data.site.language;
         document.querySelector('meta[name="description"]').content = data.site.description;
         setImage(document.getElementById("introduction-image"), data.introduction, true);
+        renderAcademicContext(data);
         var section = document.getElementById("activities-section");
         section.querySelectorAll(".activity-card").forEach(function (card) { card.remove(); });
         section.appendChild(fragment);
