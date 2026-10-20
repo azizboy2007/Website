@@ -86,6 +86,18 @@
             ["label", "name", "course", "img", "imgAlt", "imgPlaceholder"]
                 .forEach(function (field) { requireText(data, "instructor." + field); });
         }
+        if (data.takeaways != null) {
+            ["label", "title", "subtitle"].forEach(function (field) {
+                requireText(data, "takeaways." + field);
+            });
+            if (!Array.isArray(data.takeaways.paragraphs) ||
+                !data.takeaways.paragraphs.length ||
+                !data.takeaways.paragraphs.every(function (text) {
+                    return typeof text === "string" && !!text.trim();
+                })) {
+                throw new TypeError("data.json: takeaways.paragraphs must be a nonempty string array.");
+            }
+        }
     }
 
     function bindText(root, data) {
@@ -219,6 +231,55 @@
         }
     }
 
+    // A dedicated reflection section appears after all academic periods, before the footer.
+    // It reuses the current site's typography and palette without modifying the HTML template.
+    function renderTakeaways(data) {
+        var old = document.getElementById("takeaways");
+        if (old) { old.remove(); }
+        if (!data.takeaways) { return; }
+
+        var section = document.createElement("section");
+        section.id = "takeaways";
+        section.className = "container takeaways-section";
+        section.setAttribute("aria-labelledby", "takeaways-title");
+
+        var heading = document.createElement("div");
+        heading.className = "takeaways-heading reveal";
+        var label = document.createElement("p");
+        label.className = "takeaways-label";
+        label.textContent = data.takeaways.label;
+        var title = document.createElement("h2");
+        title.id = "takeaways-title";
+        title.className = "takeaways-title";
+        title.textContent = data.takeaways.title;
+        var subtitle = document.createElement("p");
+        subtitle.className = "takeaways-subtitle";
+        subtitle.textContent = data.takeaways.subtitle;
+        heading.appendChild(label);
+        heading.appendChild(title);
+        heading.appendChild(subtitle);
+
+        var card = document.createElement("article");
+        card.className = "takeaways-card reveal";
+        var body = document.createElement("div");
+        body.className = "takeaways-body";
+        data.takeaways.paragraphs.forEach(function (copy, index) {
+            var paragraph = document.createElement("p");
+            paragraph.className = "takeaways-paragraph";
+            if (index === data.takeaways.paragraphs.length - 1) {
+                paragraph.classList.add("takeaways-closing");
+            }
+            paragraph.textContent = copy;
+            body.appendChild(paragraph);
+        });
+        card.appendChild(body);
+        section.appendChild(heading);
+        section.appendChild(card);
+
+        var activities = document.getElementById("activities-section");
+        activities.parentNode.insertBefore(section, activities.nextSibling);
+    }
+
     function render(data) {
         validate(data);
         var fragment = document.createDocumentFragment();
@@ -287,6 +348,7 @@
         var section = document.getElementById("activities-section");
         section.querySelectorAll(".term-cards, .term-heading, .activity-card").forEach(function (node) { node.remove(); });
         section.appendChild(fragment);
+        renderTakeaways(data);
         portfolio.hidden = false;
         loadState.hidden = true;
         document.body.setAttribute("aria-busy", "false");
