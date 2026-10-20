@@ -5,9 +5,9 @@
     "description": "These are the activities included in my e-portfolio."
   },
   "header": {
-    "brand": "E-",
-    "brandAccent": "ABDUL, ABDUL AZIZ P.",
-    "status": "PORTFOLIO"
+    "brand": "ABDUL,",
+    "brandAccent": " ABDUL AZIZ P.",
+    "status": "E-PORTFOLIO"
   },
   "introduction": {
     "label": "E- PORTFOLIO WEBSITE",
@@ -151,7 +151,7 @@
     ]
   },
   "footer": {
-    "text": "E-PORTFOLIO",
-    "highlight": "2026"
+    "text": "© ABDUL AZIZ P ABDUL",
+    "highlight": "@2026"
   }
 }
